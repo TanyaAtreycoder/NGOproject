@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outreach - AnhadShakti Foundation</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #FAF9F6; display: flex; }
+        nav { background-color: #000; width: 250px; height: 100vh; position: fixed; padding: 20px; }
+        nav h1 { color: #FFA500; font-size: 1.4rem; text-align: center; margin-bottom: 30px; }
+        .btn { background-color: #FFB347; color: black; padding: 12px; border-radius: 5px; text-decoration: none; display: block; text-align: center; font-weight: bold; }
+        main { margin-left: 250px; width: 100%; padding: 40px; }
+        h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-img { height: 200px; background-size: cover; background-position: center; }
+        .card-info { padding: 15px; }
+        .card-info h3 { margin-bottom: 5px; color: #333; }
+        .card-info p { color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>AnhadShakti</h1>
+        <a href="index.html" class="btn">← Back to Home</a>
+    </nav>
+    <main>
+        <h2>Community Outreach Gallery</h2>
+        
+        <div class="gallery" id="gallery-container">
+            <!-- ORIGINAL THREE CARDS (Do not change) -->
+            <div class="card">
+                <div class="card-img" style="background-image: url('women.jpg');"></div>
+                <div class="card-info"><h3>Women Empowerment</h3><p>Workshops held in local villages.</p></div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('anhr.jpg');"></div>
+                <div class="card-info"><h3>Gita Mahayagya</h3><p>Preserving our cultural values.</p></div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('angreen.jpg');"></div>
+                <div class="card-info"><h3>Plantation Drive</h3><p>Active reforestation in Haryana.</p></div>
+            </div>
+
+            <!-- DYNAMIC CARDS WILL APPEAR HERE -->
+        </div>
+    </main>
+
+    <script>
+        // 1. YOUR GOOGLE SHEET CSV LINK
+        // Go to File > Share > Publish to Web > Select Sheet tab > CSV > Copy Link
+        const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjVjwLJ9O18XAgVnDnwfWrW3HUJXaQ9RhTDgzWMNAYYSlWzACvLQ2ac07n_qD60ctRSkanojHXgKdY/pub?gid=1025091388&single=true&output=csv"; 
+
+        async function fetchNewPhotos() {
+            try {
+                const response = await fetch(sheetCsvUrl);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1); // Skip the header row
+                const container = document.getElementById('gallery-container');
+
+                rows.forEach(row => {
+            const cols = row.split(',');
+            if (cols.length >= 4) {
+                // Now: Column B (index 1) is the Fixed Link
+                // Column C (index 2) is the Title
+                // Column D (index 3) is the Description
+                const imgUrl = cols[1].trim().replace(/"/g, ""); 
+                const title = cols[2].trim().replace(/"/g, "");
+                const desc = cols[3].trim().replace(/"/g, "");
+
+                const newCard = document.createElement('div');
+                newCard.className = 'card';
+                newCard.innerHTML = `
+                    <div class="card-img" style="background-image: url('${imgUrl}');"></div>
+                    <div class="card-info">
+                        <h3>${title}</h3>
+                        <p>${desc}</p>
+                    </div>
+                ;
+                container.appendChild(newCard);
+            }
+        });
+                        `;
+                        container.appendChild(newCard);
+                    }
+                });
+            } catch (error) {
+                console.log("No extra photos found or error loading sheet.");
+            }
+        }
+
+        fetchNewPhotos();
+    </script>
+</body>
+</html>

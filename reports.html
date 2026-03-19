@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Report - Anhad Shakti</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        
+        body { 
+            background-color: #FAF9F6; 
+            display: flex; 
+            justify-content: center; /* Centers content horizontally */
+            align-items: center;     /* Centers content vertically */
+            min-height: 100vh;
+            text-align: center;      /* Centers all text inside */
+        }
+
+        .reports-container {
+            width: 90%;
+            max-width: 1100px;
+            padding: 40px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+
+        h1 { font-size: 2.8rem; color: #333; margin-bottom: 10px; }
+        .subtitle { font-size: 1.2rem; color: #666; margin-bottom: 40px; }
+
+        /* Forces horizontal layout on desktop */
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap; /* Allows stacking only on mobile */
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 15px;
+            flex: 1;                /* Makes cards equal width */
+            min-width: 250px;       /* Ensures they don't get too thin */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 5px solid #ffb347; 
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card h2 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            color: #ffb347; /* Switched to orange for better branding */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .report-message {
+            margin: 40px 0;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .report-message h3 { color: #333; margin-bottom: 10px; }
+
+        /* Button Styling */
+        .btn { 
+            background-color: #FFB347; 
+            color: black; 
+            padding: 15px 40px; 
+            border-radius: 30px; 
+            text-decoration: none; 
+            display: inline-block; 
+            font-weight: bold; 
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
+        }
+
+        .btn:hover { 
+            background-color: #FFCC80; 
+            transform: scale(1.05);
+        }
+
+        /* Mobile layout */
+        @media (max-width: 768px) {
+            .stats-grid { flex-direction: column; align-items: center; }
+            .stat-card { width: 100%; max-width: 350px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <section class="reports-container">
+        <h1>Our Impact at a Glance</h1>
+        <p class="subtitle">We are dedicatedly serving across Haryana. Here is our progress so far.</p>
+        
+        <div class="stats-grid">
+    <h2 id="sheet-volunteers">--</h2> <!-- The ID is the key -->
+    <p>Active Volunteers</p>
+</div>
+<div class="stat-card">
+    <h2 id="sheet-impact">--</h2>
+    <p>Lives Impacted</p>
+</div>
+
+<script>
+  // Paste your Published CSV URL here
+  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjVjwLJ9O18XAgVnDnwfWrW3HUJXaQ9RhTDgzWMNAYYSlWzACvLQ2ac07n_qD60ctRSkanojHXgKdY/pub?gid=0&single=true&output=csv";
+
+  fetch(csvUrl)
+    .then(res => res.text())
+    .then(data => {
+      const rows = data.split('\n');
+      const volData = rows[0].split(',')[1]; // Gets 50+
+      const impactData = rows[1].split(',')[1]; // Gets 500+
+      
+      document.getElementById('sheet-volunteers').innerText = volData.replace(/"/g, "");
+      document.getElementById('sheet-impact').innerText = impactData.replace(/"/g, "");
+    });
+</script>
+        <div class="report-message">
+            <h3>Annual Report 2025-26</h3>
+            <p>Our full detailed report is currently under audit and will be available for download soon.</p>
+        </div>
+        
+        <a href="index.html" class="btn">Back to Home</a>
+    </section>
+</body>
+</html>
