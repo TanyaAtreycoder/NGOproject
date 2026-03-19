@@ -2,8 +2,7 @@
 
 This is the official website for the **Anhad Shakti Foundation**, a non-profit organization dedicated to community outreach and empowerment in Haryana.
 
-## 🚀 Live Link
-[https://anhadshakti.org](https://anhadshakti.org) (Hosted via Netlify)
+
 
 ## 🛠 Tech Stack
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
